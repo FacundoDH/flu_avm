@@ -1,6 +1,8 @@
 import 'dart:math' as math;
 
+import 'package:flu_avm/config/config.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -24,18 +26,22 @@ class _HomeView extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return ListView.builder( //lista
-    itemCount: 7,
+      itemCount: appMenuItems.length,
       itemBuilder:(context, index) { //actua como un for para a lista
-        return ListTile(
-          title: _MyListTile(),
-        );
+        final menuItem = appMenuItems[index];
+        return _MyListTile(menuItem: menuItem);
       },
     );
   }
 }
 
 class _MyListTile extends StatelessWidget {
-  const _MyListTile();
+
+  final MenuItem menuItem; //llamamos la lista de menu item
+
+  const _MyListTile({
+    required this.menuItem
+  });
 
   @override
 
@@ -44,8 +50,8 @@ class _MyListTile extends StatelessWidget {
     final colorum = Theme.of(context).colorScheme;
 
     return ListTile(  //Elementos de la lista
-      title: Text('Contador'),
-      subtitle: Text('Introducción a Riverpod'),
+      title: Text(menuItem.title),
+      subtitle: Text(menuItem.subtitle),
       trailing: Icon(Icons.arrow_forward_ios_rounded, color: colorum.primary,),
       leading: CircleAvatar(
         backgroundColor: Color.fromARGB(
@@ -55,11 +61,13 @@ class _MyListTile extends StatelessWidget {
         math.Random().nextInt(255)
         ),
         child: Icon(
-          Icons.add,
+          menuItem.icon,
           color: Colors.black,
         ),
       ),
-      onTap: () { }, //"al pulsar"
+      onTap: () {
+        context.push(menuItem.link);
+      }, //"al pulsar"
     );
   }
 }
