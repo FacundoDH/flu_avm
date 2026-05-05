@@ -1,18 +1,35 @@
 import 'dart:math' as math;
-
 import 'package:flu_avm/config/config.dart';
+import 'package:flu_avm/presentation/providers/providers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class HomeScreen extends StatelessWidget {
+
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
 
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    final bool darkModeState = ref.watch(isDarkModeProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Flu AVM App'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              ref.read(isDarkModeProvider.notifier).state = !darkModeState;
+            },
+            icon: Icon(
+              darkModeState 
+                ? Icons.dark_mode_outlined 
+                : Icons.light_mode_outlined // ? "if it's true" ----- : "else"
+            )
+          )
+        ],
       ),
       body: _HomeView(),
     );
