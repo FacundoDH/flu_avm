@@ -1,13 +1,19 @@
 import 'package:flu_avm/config/config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class BandsScreen extends StatelessWidget {
+import '../../providers/providers.dart';
+
+class BandsScreen extends ConsumerWidget {
   const BandsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
+    final bands = ref.watch(bandsProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Bandas'),
@@ -15,24 +21,23 @@ class BandsScreen extends StatelessWidget {
       body: ListView.builder(
         itemCount: bands.length,
         itemBuilder:(context, i) {
-          return _bandTile(bands[i]);
+          return _bandTile(context, ref, bands[i]);
         },
       ),
       floatingActionButton: FloatingActionButton(
         elevation: 1, //sombra del elemento, diseño
-        onPressed: () => addNewBand(context),
+        onPressed: () => addNewBand(context, ref),
         child: Icon(Icons.add),
       )
     );
   }
 
-  Widget _bandTile(Band band) {
+  Widget _bandTile(BuildContext contex, WidgetRef ref, Band band) {
     return Dismissible(
       key: Key(band.id), //necesario en los dismissibles, se necesita para que sepa que elemento borrar y poder cambiar el índice
       direction: DismissDirection.startToEnd, //izquierda a derecha
       onDismissed:(direction) {
-        print('Direction: $direction');
-        print('id: ${band.id}');
+        ref.read(bandsProvider.notifier).deleteBand(band);
       },
       background: Container(
         padding: EdgeInsets.only(left: 8.0),
@@ -49,13 +54,13 @@ class BandsScreen extends StatelessWidget {
         title: Text(band.name),
         trailing: Text('${band.numberVotes}', style: TextStyle(fontSize: 20),),
         onTap: () {
-          print(band.name);
+          ref.read(bandsProvider.notifier).addVote(band);
         },
       ),
     );
   }
 
-  addNewBand(BuildContext context) {
+  addNewBand(BuildContext context, WidgetRef ref) {
 
     final TextEditingController textController = TextEditingController();
 
@@ -94,7 +99,7 @@ class BandsScreen extends StatelessWidget {
             isDefaultAction: true,
             child: const Text('Add'),
             onPressed: () {
-              addBandToList(context, textController.text);
+              addBandToList(context, ref, textController.text);
               context.pop();
             }
           ),
@@ -108,9 +113,16 @@ class BandsScreen extends StatelessWidget {
     );
   }
 
-  void addBandToList(BuildContext context, String name) {
-    print(name);
-    context.pop();
+  void addBandToList(BuildContext context, WidgetRef ref, String name) {
+
+    if (name.length > 1) {
+      ref.read(bandsProvider.notifier).addBand(
+        Band(
+          id: DateTime.now().toString(),
+          name: name,
+          numberVotes: 0
+          ));
+    }
   }
 }
 
