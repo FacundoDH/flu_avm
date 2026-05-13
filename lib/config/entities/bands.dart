@@ -22,7 +22,7 @@ class Band {
     );
   }
 
-  factory Band.from(Map<String, dynamic> obj) {
+  factory Band.fromMap(Map<String, dynamic> obj) {
     return Band(
       id: obj['id'],
       name: obj['name'],

@@ -12,7 +12,7 @@ class BandsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    final bands = ref.watch(bandsProvider);
+    final bandsState = ref.watch(bandsProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -22,13 +22,13 @@ class BandsScreen extends ConsumerWidget {
       body: Column(
         children: [
           //Grafico pie
-          _videreData(bands),
+          _videreData( bandsState.bands),
           const SizedBox(height: 20), //caja añadida para espaciar
           Expanded(
             child: ListView.builder(
-              itemCount: bands.length,
+              itemCount: bandsState.bands.length,
               itemBuilder:(context, i) {
-                return _bandTile(context, ref, bands[i]);
+                return _bandTile(context, ref, bandsState.bands[i]);
               },
             ),
           ),
@@ -36,7 +36,7 @@ class BandsScreen extends ConsumerWidget {
       ),
 
       floatingActionButton: Visibility(
-        visible: bands.length < 7 ? true : false,
+        visible: bandsState.bands.length < 7 ? true : false,
         child: FloatingActionButton(
           elevation: 1, //sombra del elemento, diseño
           onPressed: () => addNewBand(context, ref),
@@ -97,7 +97,7 @@ class BandsScreen extends ConsumerWidget {
       key: Key(band.id), //necesario en los dismissibles, se necesita para que sepa que elemento borrar y poder cambiar el índice
       direction: DismissDirection.startToEnd, //izquierda a derecha
       onDismissed:(direction) {
-        ref.read(bandsProvider.notifier).deleteBand(band);
+        ref.read(bandsProvider.notifier).deleteBand(band.id);
       },
       background: Container(
         padding: EdgeInsets.only(left: 8.0),
@@ -114,7 +114,7 @@ class BandsScreen extends ConsumerWidget {
         title: Text(band.name),
         trailing: Text('${band.numberVotes}', style: TextStyle(fontSize: 20),),
         onTap: () {
-          ref.read(bandsProvider.notifier).addVote(band);
+          ref.read(bandsProvider.notifier).addVote(band.id);
         },
       ),
     );
@@ -159,7 +159,8 @@ class BandsScreen extends ConsumerWidget {
             isDefaultAction: true,
             child: const Text('Add'),
             onPressed: () {
-              addBandToList(context, ref, textController.text);
+              //addBandToList(context, ref, textController.text);
+              ref.read(bandsProvider.notifier).addBand(textController.text);
               context.pop();
             }
           ),
@@ -173,7 +174,7 @@ class BandsScreen extends ConsumerWidget {
     );
   }
 
-  void addBandToList(BuildContext context, WidgetRef ref, String name) {
+/*  void addBandToList(BuildContext context, WidgetRef ref, String name) {
 
     if (name.length > 1) {
       ref.read(bandsProvider.notifier).addBand(
@@ -183,6 +184,6 @@ class BandsScreen extends ConsumerWidget {
           numberVotes: 0
           ));
     }
-  }
+  } */
 }
 

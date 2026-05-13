@@ -59,6 +59,25 @@ class BandsNotifier extends StateNotifier<BandsState>{
     state.socket.onDisconnect(( _ ) {
       state = state.copyWith(serverStatus: ServerStatus.Offline);
     });
+
+    state.socket.on('BANDS_LIST', (payload) {
+      final bands = (payload as List).map((band) => Band.fromMap(band)).toList();
+      state = state.copyWith(bands: bands);
+    });
+  }
+
+  void addBand(String name) {
+    if (name.length > 1) {
+      state.socket.emit('ADD_BAND', {'name': name});
+    }
+  }
+
+  void addVote(String id) {
+    state.socket.emit('VOTE_BAND', {'id': id});
+  }
+
+  void deleteBand(String id) {
+    state.socket.emit('DELETE_BAND', {'id': id});
   }
 }
 
