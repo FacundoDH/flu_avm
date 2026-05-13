@@ -24,7 +24,7 @@ class MainApp extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme(
         darkModeState: darkModeState,
-        chooseColor: Colors.pink.shade900
+        chooseColor: const Color.fromARGB(255, 238, 148, 14)
         ).getTheme(),
     );
   }

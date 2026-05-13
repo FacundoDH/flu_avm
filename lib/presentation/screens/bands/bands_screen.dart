@@ -14,9 +14,19 @@ class BandsScreen extends ConsumerWidget {
 
     final bandsState = ref.watch(bandsProvider);
 
+    final serverStatus = ref.watch(bandsProvider).serverStatus;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Bandas'),
+        actions: [
+          Container(
+            margin: EdgeInsets.only(right: 10),
+            child: (serverStatus == ServerStatus.Online)
+              ? Icon(Icons.check_circle, color: Colors.blue[300],)
+              : Icon(Icons.check_circle, color: Colors.red[300],),
+          )
+        ],
       ),
 
       body: Column(
