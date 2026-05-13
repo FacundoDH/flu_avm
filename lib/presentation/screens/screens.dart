@@ -1,3 +1,4 @@
 export './home/home_screen.dart';
 export './numerator/numerator_screen.dart';
 export './bands/bands_screen.dart';
+export './charts/charts_screen.dart';

@@ -27,4 +27,10 @@ const appMenuItems = <MenuItem>[ //lista de objetos de tipo MenuItems
     link: '/bands',
     icon: Icons.music_note_outlined
     ),
+  MenuItem(
+    title: 'Mapas',
+    subtitle: 'Localización de usuarios',
+    link: '/charts',
+    icon: Icons.map_outlined
+  ),
 ];

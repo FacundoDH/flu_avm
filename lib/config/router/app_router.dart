@@ -16,5 +16,9 @@ final appRouter = GoRouter(
       path: '/bands',
       builder: (context, state) => const BandsScreen(),
     ),
+    GoRoute(
+      path: '/charts',
+      builder: (context, state) => const ChartsScreen(),
+    ),
   ]
 );
