@@ -120,7 +120,7 @@ class CompleteForm extends ConsumerWidget {
 
     if (nameValue.isEmpty) return;
 
-    // TODO: Poner el marcador
+    ref.read(markerPositionedProvider.notifier).state = true;
 
     print('name: $nameValue, color: $colorValue');
   }
