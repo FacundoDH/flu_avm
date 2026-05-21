@@ -5,3 +5,4 @@ export './router/app_router.dart';
 export './entities/bands.dart';
 export './entities/user.dart';
 export './helpers/color_format.dart';
+export 'entities/position.dart'; // TEMPORAL - borrar cuando se reactive Mapbox

@@ -1,4 +1,6 @@
-import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
+//import 'package:mapbox_maps_flutter/mapbox_maps_flutter.dart';
+
+import '../config.dart';
 
 class User {
   final String id;

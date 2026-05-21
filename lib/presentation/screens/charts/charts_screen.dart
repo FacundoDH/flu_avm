@@ -1,4 +1,9 @@
-import 'package:flu_avm/config/helpers/color_format.dart';
+// TEMPORAL: Pantalla de mapa desactivada para desarrollo en Chrome
+// Para reactivar: borrar el widget temporal de abajo y descomentar todo el bloque original
+
+// --- INICIO CÓDIGO ORIGINAL ---
+
+/*import 'package:flu_avm/config/helpers/color_format.dart';
 import 'package:flu_avm/presentation/providers/providers.dart';
 import 'package:flu_avm/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -180,6 +185,33 @@ class _ChartsScreenState extends ConsumerState<ChartsScreen> {
             )
         ]
       )
+    );
+  }
+}*/
+
+// TEMPORAL: placeholder mientras se desarrolla en Chrome
+import 'package:flutter/material.dart';
+
+class ChartsScreen extends StatelessWidget {
+  const ChartsScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Mapas')),
+      body: const Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.map_outlined, size: 64, color: Colors.grey),
+            SizedBox(height: 16),
+            Text('Mapa desactivado temporalmente',
+                style: TextStyle(color: Colors.grey)),
+            Text('(solo disponible en Android/iOS)',
+                style: TextStyle(color: Colors.grey, fontSize: 12)),
+          ],
+        ),
+      ),
     );
   }
 }
