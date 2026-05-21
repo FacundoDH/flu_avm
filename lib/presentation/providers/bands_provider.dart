@@ -37,7 +37,7 @@ class BandsNotifier extends StateNotifier<BandsState>{
    : super(BandsState(
     serverStatus: ServerStatus.Connecting,
     socket: IO.io(
-      'http://localhost:3000', //si no funciona poner la ip
+      'http://10.0.2.2:3000', //si no funciona poner la ip
       IO.OptionBuilder()
         .setTransports(['websocket'])
         .enableAutoConnect()

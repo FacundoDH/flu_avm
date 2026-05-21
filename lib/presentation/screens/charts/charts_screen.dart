@@ -1,3 +1,4 @@
+import 'package:flu_avm/config/helpers/color_format.dart';
 import 'package:flu_avm/presentation/providers/providers.dart';
 import 'package:flu_avm/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -34,18 +35,24 @@ class _ChartsScreenState extends ConsumerState<ChartsScreen> {
 
     _dragCancelable?.cancel();
 
+    final socketService = ref.read(socketServiceProvider);
+
     _dragCancelable = manager.dragEvents(
       onChanged: (CircleAnnotation annotation) {
 
         final pos = annotation.geometry.coordinates;
 
         ref.read(coordsMarkerProvider.notifier).state = pos;
+
+        socketService.emitPosition(pos);
       },
       onEnd: (CircleAnnotation annotation) {
 
         final pos = annotation.geometry.coordinates;
 
         ref.read(coordsMarkerProvider.notifier).state = pos;
+
+        socketService.emitPosition(pos);
       }
     );
   }
@@ -58,13 +65,12 @@ class _ChartsScreenState extends ConsumerState<ChartsScreen> {
 
     final placed = ref.read(markerPositionedProvider);
 
-    if (!placed) {
+    /*if (!placed) {
       await manager.deleteAll();
       return;
     }
 
     final site = ref.read(coordsMarkerProvider);
-
     final color = ref.read(formColorProvider);
 
     final options = CircleAnnotationOptions(
@@ -79,6 +85,49 @@ class _ChartsScreenState extends ConsumerState<ChartsScreen> {
       await manager.create(options);
     } catch (e) {
       debugPrint('Error al crear marcador: $e');
+    }*/
+
+    if (placed) {
+      final site = ref.read(coordsMarkerProvider);
+      final color = ref.read(formColorProvider);
+
+      final options = CircleAnnotationOptions(
+        geometry: Point(coordinates: site),
+        circleColor: color.toARGB32(),
+        circleRadius: 14.0,
+        circleStrokeColor: Colors.white.toARGB32(),
+        isDraggable: true
+      );
+
+      try {
+        await manager.create(options);
+      } catch (e) {
+        debugPrint('Error al crear marcador: $e');
+      }
+    }
+
+    final otherRaw = ref.read(otherUsersProvider).value ?? [];
+
+    final myId = ref.read(socketServiceProvider).mySocketId;
+
+    final others = otherRaw.where((u) => u.id != myId).toList();
+
+    for (final user in others) {
+      final userColor = exHexToColor(user.colorhex);
+
+      final othersOptions = CircleAnnotationOptions(
+        geometry: Point(coordinates: user.position),
+        circleColor: userColor.toARGB32(),
+        circleRadius: 14.0,
+        circleStrokeColor: Colors.white.toARGB32(),
+        isDraggable: false
+      );
+
+      try {
+        await manager.create(othersOptions);
+      } catch (e) {
+        debugPrint('Error al crear marcadorde otros usuarios: $e');
+      }
     }
   }
 
@@ -93,6 +142,10 @@ class _ChartsScreenState extends ConsumerState<ChartsScreen> {
 
     ref.listen<bool>(markerPositionedProvider, (prev, next) {
       if ( next == true ) _addOrRennovateMarker();
+    });
+
+    ref.listen(otherUsersProvider, (prev, next) {
+      _addOrRennovateMarker();
     });
 
     return Scaffold(

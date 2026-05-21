@@ -120,6 +120,16 @@ class CompleteForm extends ConsumerWidget {
 
     if (nameValue.isEmpty) return;
 
+    final socketService = ref.read(socketServiceProvider);
+
+    socketService.connect();
+
+    socketService.emitUser(
+      name: nameValue, 
+      colorHex: colorValue, 
+      position: ref.read(coordsMarkerProvider),
+    );
+
     ref.read(markerPositionedProvider.notifier).state = true;
 
     print('name: $nameValue, color: $colorValue');
