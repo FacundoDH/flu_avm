@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   
@@ -18,6 +19,9 @@ class AppTheme {
 
     appBarTheme: const AppBarTheme(
       centerTitle: false,
+    ),
+    textTheme: TextTheme(
+      titleLarge: GoogleFonts.montserratAlternates()
     )
   );
 }
