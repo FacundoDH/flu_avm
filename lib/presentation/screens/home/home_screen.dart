@@ -31,7 +31,18 @@ class HomeScreen extends ConsumerWidget {
           )
         ],
       ),
-      body: _HomeView(),
+      body: Column(
+        children: [
+          Image.asset(
+            'assets/images/valencia.jpg',
+            width: double.infinity,
+            fit: BoxFit.contain
+          ),
+          Expanded(
+            child: _HomeView()
+          ),
+        ],
+      ),
     );
   }
 }
