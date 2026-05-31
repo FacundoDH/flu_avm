@@ -149,7 +149,23 @@ class WelcomeScreen extends ConsumerWidget {
 
               Spacer(),
 
-              Container(height: 160, color: Colors.green.withOpacity(0.2)),
+              Row(
+                children: [
+                  Expanded(
+                    child: _ExampleCard(
+                      image: 'assets/images/mapa.jpg',
+                      title: 'Mapas',
+                      subtitle: 'Ubicación en tiempo real',
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: _ExampleCard(
+                      image: 'assets/images/votaciones.jpg',
+                      title: 'Votaciones',
+                      subtitle: 'Gráfico que se actualiza'),)
+                ],
+              ),
 
               Spacer(),
 
@@ -167,6 +183,54 @@ class WelcomeScreen extends ConsumerWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _ExampleCard extends StatelessWidget {
+  
+  final String image;
+  final String title;
+  final String subtitle;
+
+  const _ExampleCard({
+    required this.image,
+    required this.title,
+    required this.subtitle,
+  });
+
+  @override
+  
+  Widget build(BuildContext context) {
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(left: 8, top: 8, right: 8),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(
+                image,
+                height: 170,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style:  TextStyle(fontWeight: FontWeight.bold),),
+                Text(subtitle, style: Theme.of(context).textTheme.bodySmall),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
