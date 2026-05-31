@@ -1,3 +1,4 @@
+import 'package:flu_avm/config/config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -169,7 +170,14 @@ class WelcomeScreen extends ConsumerWidget {
 
               Spacer(),
 
-              Container(height: 60, color: Colors.purple.withOpacity(0.2)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _StatBadge(value: '${appMenuItems.length}', label: 'PANTALLAS'),
+                  _StatBadge(value: '2', label: 'WEBSOCKETS'),
+                  _StatBadge(value: 'FD', label: 'FACUNDO DI PIERRO'),
+                ]
+              ),
 
               Spacer(),
 
@@ -233,5 +241,37 @@ class _ExampleCard extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class _StatBadge extends StatelessWidget {
+  final String value;
+  final String label;
+
+  const _StatBadge({
+    required this.value,
+    required this.label,
+  });
+
+  @override
+  
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        border: Border.all(color: Theme.of(context).colorScheme.outline),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        children: [
+          Text(
+            value, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          ),
+          Text(
+            label, style: Theme.of(context).textTheme.labelSmall,
+          ),
+        ],
+      ),
+      );
   }
 }
