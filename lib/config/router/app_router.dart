@@ -26,6 +26,10 @@ final appRouter = GoRouter(
       builder: (context, state) => const ChartsScreen(),
     ),
     GoRoute(
+      path: '/personal',
+      builder: (context, state) => const PersonalScreen(),
+    ),
+    GoRoute(
       path: '/request',
       builder: (context, state) => const PokemonsScreen(),
       routes: [

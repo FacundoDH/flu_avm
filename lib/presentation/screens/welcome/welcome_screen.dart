@@ -69,19 +69,19 @@ class WelcomeScreen extends ConsumerWidget {
                       Image.asset(
                         'assets/images/movil.png', 
                         height: 80,
-                        color: darkMode ? Colors.white : null,
+                        color: darkMode ? Theme.of(context).colorScheme.onSurface : null,
                         colorBlendMode: BlendMode.srcIn,
                         ),
                       Image.asset(
                         'assets/images/puntos.png', 
                         height: 40,
-                        color: darkMode ? Colors.white : null,
+                        color: darkMode ? Theme.of(context).colorScheme.onSurface : null,
                         colorBlendMode: BlendMode.srcIn,
                         ),
                       Image.asset(
                         'assets/images/servidor.png', 
                         height: 80,
-                        color: darkMode ? Colors.white : null,
+                        color: darkMode ? Theme.of(context).colorScheme.onSurface : null,
                         colorBlendMode: BlendMode.srcIn,
                         ),
                     ],
