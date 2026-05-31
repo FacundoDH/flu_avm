@@ -70,7 +70,33 @@ class WelcomeScreen extends ConsumerWidget {
                     ],
                   )
                 ],
-              )
+              ),
+
+              Spacer(),
+
+              Container(height: 120, color: Colors.blue.withOpacity(0.2)),
+
+              Spacer(),
+
+              Container(height: 100, color: Colors.orange.withOpacity(0.2)),
+
+              Spacer(),
+
+              Container(height: 160, color: Colors.green.withOpacity(0.2)),
+
+              Spacer(),
+
+              Container(height: 60, color: Colors.purple.withOpacity(0.2)),
+
+              Spacer(),
+
+              SizedBox(
+                width: double.infinity,
+                child: FilledButton(
+                  onPressed: () => context.go('/home'),
+                  child: Text('Comenzar'),
+                ),
+              ),
             ],
           ),
         ),
