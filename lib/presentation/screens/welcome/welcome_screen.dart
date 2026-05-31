@@ -44,11 +44,37 @@ class WelcomeScreen extends ConsumerWidget {
                     icon: Icon(darkMode ? Icons.dark_mode_outlined : Icons.light_mode_outlined)
                   )
                 ]
+              ),
+
+              Spacer(),
+
+              Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal:14, vertical:4),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: colors.primary),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Text('WS', style: TextStyle(color: colors.primary)),
+                  ),
+
+                  SizedBox(height: 16),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Image.asset('assets/images/movil.png', height: 80),
+                      Image.asset('assets/images/puntos.png', height: 40),
+                      Image.asset('assets/images/servidor.png', height: 80),
+                    ],
+                  )
+                ],
               )
             ],
-          )
+          ),
         ),
-      )
+      ),
     );
   }
 }
