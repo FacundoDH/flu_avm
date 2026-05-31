@@ -11,6 +11,7 @@ class WelcomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
 
   final bool darkMode = ref.watch(isDarkModeProvider);
+  final serverStatus = ref.watch(bandsProvider).serverStatus;
   final colors = Theme.of(context).colorScheme;
   final text = Theme.of(context).textTheme;
 
@@ -64,9 +65,24 @@ class WelcomeScreen extends ConsumerWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Image.asset('assets/images/movil.png', height: 80),
-                      Image.asset('assets/images/puntos.png', height: 40),
-                      Image.asset('assets/images/servidor.png', height: 80),
+                      Image.asset(
+                        'assets/images/movil.png', 
+                        height: 80,
+                        color: darkMode ? Colors.white : null,
+                        colorBlendMode: BlendMode.srcIn,
+                        ),
+                      Image.asset(
+                        'assets/images/puntos.png', 
+                        height: 40,
+                        color: darkMode ? Colors.white : null,
+                        colorBlendMode: BlendMode.srcIn,
+                        ),
+                      Image.asset(
+                        'assets/images/servidor.png', 
+                        height: 80,
+                        color: darkMode ? Colors.white : null,
+                        colorBlendMode: BlendMode.srcIn,
+                        ),
                     ],
                   )
                 ],
@@ -74,11 +90,62 @@ class WelcomeScreen extends ConsumerWidget {
 
               Spacer(),
 
-              Container(height: 120, color: Colors.blue.withOpacity(0.2)),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
 
-              Spacer(),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: (serverStatus == ServerStatus.Online)
+                        ? Colors.green.withValues(alpha: 0.15)
+                        : Colors.red.withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.circle, 
+                          size: 10, 
+                          color: (serverStatus == ServerStatus.Online)
+                            ? Colors.green
+                            : Colors.red,
+                        ),
 
-              Container(height: 100, color: Colors.orange.withOpacity(0.2)),
+                        SizedBox(width: 6),
+
+                        Text(
+                          (serverStatus == ServerStatus.Online)
+                            ? 'CONECTADO'
+                            : 'DESCONECTADO',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: (serverStatus == ServerStatus.Online) 
+                            ? Colors.green
+                            : Colors.red,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(height: 8),
+
+                  Text(
+                    'WebSockets en vivo',
+                    style: text.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+
+                  SizedBox(height: 6),
+
+                  Text(
+                    'Aprende a construir apps con datos en tiempo real en Flutter. Dos ejemplos prácticos te esperan dentro.',
+                    style: text.bodyMedium,
+                  ),
+                ],
+              ),
 
               Spacer(),
 
