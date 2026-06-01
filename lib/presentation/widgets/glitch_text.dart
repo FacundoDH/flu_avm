@@ -25,10 +25,11 @@ class GlitchText extends StatefulWidget {
 class _GlitchTextState extends State<GlitchText> {
   
   static const String _chars =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#[+=€-_{}Ç%&*?';
+    'abcdefghijklmnopqrstuvwxyz0123456789';
 
   final Random _random = Random();
   late String _displayText;
+  late double _fixedWidth;
   Timer? _cycleTimer;
   Timer? _glitchTimer;
 
@@ -36,7 +37,16 @@ class _GlitchTextState extends State<GlitchText> {
   void initState() {
     super.initState();
     _displayText = widget.text;
+    _fixedWidth = _measureWidth(widget.text);
     _startVisible();
+  }
+
+  double _measureWidth(String text) {
+    final TextPainter painter = TextPainter(
+      text: TextSpan(text: text, style: widget.style),
+      textDirection: TextDirection.ltr,
+    )..layout();
+    return painter.width;
   }
 
   void _startVisible() {
@@ -69,6 +79,15 @@ class _GlitchTextState extends State<GlitchText> {
 
   @override
   Widget build(BuildContext context) {
-    return Text(_displayText, style: widget.style,);
+    return SizedBox(
+      width: _fixedWidth,
+      child: Text(
+        _displayText, 
+        style: widget.style,
+        maxLines: 1,
+        overflow: TextOverflow.clip,
+        textAlign: TextAlign.center,
+      ),
+    );
   }
 }

@@ -13,13 +13,13 @@ class TextSegment {
 }
 
 class Scene {
-  final Color color;
+  final String imagePath;
   final String title;
   final List<TextSegment> body;
   final Alignment alignment;
 
   const Scene({
-    required this.color,
+    required this.imagePath,
     required this.title,
     required this.body,
     this.alignment = Alignment.center,
@@ -28,17 +28,19 @@ class Scene {
 
 const List<Scene> scenes = [
   Scene(
-    color: Colors.black,
-    title: 'Placeholder',
+    imagePath: 'assets/images/personal/personal_1.jpg',
+    title: '33°17′33″N  44°03′54″E_Irak',
     body: [
-      TextSegment('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida.'),
-      TextSegment('Quisque ac auctor ante, eget dapibus neque.', isGlitch: true), 
-      TextSegment(' Interdum et malesuada fames ac ante ipsum primis in faucibus.'),
+      TextSegment('_Prisión de Abu Ghraib. Usada por el '),
+      TextSegment('gobierno', isGlitch: true),
+      TextSegment(' de los'),
+      TextSegment('Estados Unidos', isGlitch: true), 
+      TextSegment('. Como centro de reclusos durante la Guerra de Irak.'),
       ],
     alignment: Alignment.bottomLeft,
   ),
   Scene(
-    color: Colors.red,
+    imagePath: 'assets/images/personal/personal_2.jpg',
     title: 'Placeholder',
     body: [
       TextSegment('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida.'),
@@ -48,7 +50,7 @@ const List<Scene> scenes = [
     alignment: Alignment.center,
   ),
   Scene(
-    color: Colors.white,
+    imagePath: 'assets/images/personal/personal_3.jpg',
     title: 'Placeholder',
     body: [
       TextSegment('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida.'),
@@ -58,7 +60,7 @@ const List<Scene> scenes = [
     alignment: Alignment.topRight,
   ),
   Scene(
-    color: Colors.green,
+    imagePath: 'assets/images/personal/personal_4.jpg',
     title: 'Placeholder',
     body: [
       TextSegment('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida.'),
@@ -68,7 +70,27 @@ const List<Scene> scenes = [
     alignment: Alignment.topLeft,
   ),
   Scene(
-    color: Colors.purple,
+    imagePath: 'assets/images/personal/personal_5.jpg',
+    title: 'Placeholder',
+    body: [
+      TextSegment('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida.'),
+      TextSegment('Quisque ac auctor ante, eget dapibus neque.', isGlitch: true), 
+      TextSegment('Interdum et malesuada fames ac ante ipsum primis in faucibus.'),
+      ],
+    alignment: Alignment.bottomRight,
+  ),
+  Scene(
+    imagePath: 'assets/images/personal/personal_6.jpg',
+    title: 'Placeholder',
+    body: [
+      TextSegment('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida.'),
+      TextSegment('Quisque ac auctor ante, eget dapibus neque.', isGlitch: true), 
+      TextSegment('Interdum et malesuada fames ac ante ipsum primis in faucibus.'),
+      ],
+    alignment: Alignment.bottomRight,
+  ),
+  Scene(
+    imagePath: 'assets/images/personal/personal_7.jpg',
     title: 'Placeholder',
     body: [
       TextSegment('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida.'),
@@ -136,13 +158,20 @@ class _PersonalScreenState extends State<PersonalScreen> {
           return Stack(
             children: [
 
-              Positioned.fill(child: Container(color: scenes[_currentScene].color),
+              Positioned.fill(
+                child: Image.asset(
+                  scenes[_currentScene].imagePath,
+                  fit: BoxFit.cover,
+                ),
               ),
 
               Positioned.fill(
                 child: Opacity(
                   opacity: _fadeProgress,
-                  child: Container(color: scenes[nextScene].color),
+                  child: Image.asset(
+                    scenes[nextScene].imagePath,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
 
@@ -160,7 +189,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
                         alignment: scenes[index].alignment,
                         child: Container(
                           padding: EdgeInsets.all(16),
-                          color: Colors.white.withValues(alpha: 0.5),
+                          color: Colors.black.withValues(alpha: 0.8),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -172,7 +201,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
                                   fontFamily: 'monospace',
                                   fontSize: 22,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.black,
+                                  color: Colors.white,
                                   letterSpacing: 4,
                                 ),
                               ),
@@ -184,7 +213,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
                                   style: const TextStyle(
                                     fontFamily: 'monospace',
                                     fontSize: 14,
-                                    color: Colors.black,
+                                    color: Colors.white,
                                     height: 1.8,
                                     letterSpacing: 1.2,
                                   ),
@@ -197,7 +226,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
                                           style: const TextStyle(
                                             fontFamily: 'monospace',
                                             fontSize: 14,
-                                            color: Colors.black,
+                                            color: Colors.white,
                                             fontWeight: FontWeight.bold,
                                             letterSpacing: 1.2,
                                           ),
