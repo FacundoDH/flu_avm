@@ -4,11 +4,13 @@ class Scene {
   final Color color;
   final String title;
   final String body;
+  final Alignment alignment;
 
   const Scene({
     required this.color,
     required this.title,
     required this.body,
+    this.alignment = Alignment.center,
   });
 }
 
@@ -16,27 +18,32 @@ const List<Scene> scenes = [
   Scene(
     color: Colors.black,
     title: 'Placeholder',
-    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida. Quisque ac auctor ante, eget dapibus neque. Interdum et malesuada fames ac ante ipsum primis in faucibus.'
+    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida. Quisque ac auctor ante, eget dapibus neque. Interdum et malesuada fames ac ante ipsum primis in faucibus.',
+    alignment: Alignment.bottomLeft,
   ),
   Scene(
     color: Colors.red,
     title: 'Placeholder',
-    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida. Quisque ac auctor ante, eget dapibus neque. Interdum et malesuada fames ac ante ipsum primis in faucibus.'
+    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida. Quisque ac auctor ante, eget dapibus neque. Interdum et malesuada fames ac ante ipsum primis in faucibus.',
+    alignment: Alignment.center,
   ),
   Scene(
     color: Colors.white,
     title: 'Placeholder',
-    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida. Quisque ac auctor ante, eget dapibus neque. Interdum et malesuada fames ac ante ipsum primis in faucibus.'
+    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida. Quisque ac auctor ante, eget dapibus neque. Interdum et malesuada fames ac ante ipsum primis in faucibus.',
+    alignment: Alignment.topRight,
   ),
   Scene(
     color: Colors.green,
     title: 'Placeholder',
-    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida. Quisque ac auctor ante, eget dapibus neque. Interdum et malesuada fames ac ante ipsum primis in faucibus.'
+    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida. Quisque ac auctor ante, eget dapibus neque. Interdum et malesuada fames ac ante ipsum primis in faucibus.',
+    alignment: Alignment.topLeft,
   ),
   Scene(
     color: Colors.purple,
     title: 'Placeholder',
-    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida. Quisque ac auctor ante, eget dapibus neque. Interdum et malesuada fames ac ante ipsum primis in faucibus.'
+    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida. Quisque ac auctor ante, eget dapibus neque. Interdum et malesuada fames ac ante ipsum primis in faucibus.',
+    alignment: Alignment.bottomRight,
   ),
 ];
 
@@ -114,7 +121,47 @@ class _PersonalScreenState extends State<PersonalScreen> {
                   physics: const AlwaysScrollableScrollPhysics(),
                   itemCount: scenes.length,
                   itemBuilder: (context, index) {
-                    return SizedBox(height: constraints.maxHeight);
+                    return Container(
+                      height: constraints.maxHeight,
+                      padding: EdgeInsets.symmetric(horizontal:32, vertical:64),
+                      child: Align(
+                        alignment: scenes[index].alignment,
+                        child: Container(
+                          padding: EdgeInsets.all(16),
+                          color: Colors.white.withValues(alpha: 0.5),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                          
+                              Text(
+                                scenes[index].title,
+                                style: const TextStyle(
+                                  fontFamily: 'monospace',
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                  letterSpacing: 4,
+                                ),
+                              ),
+                          
+                              SizedBox(height:24),
+                          
+                              Text(
+                                scenes[index].body,
+                                style: const TextStyle(
+                                  fontFamily: 'monospace',
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  height: 1.8,
+                                  letterSpacing: 1.2,
+                                ),
+                              ),
+                            ]
+                          ),
+                        )
+                      ),
+                    );
                   }
                 ),
               ),
