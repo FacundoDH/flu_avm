@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../widgets/widgets.dart';
 
@@ -153,6 +154,28 @@ class _PersonalScreenState extends State<PersonalScreen> {
     final int nextScene = (_currentScene + 1).clamp(0, scenes.length - 1);
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: AnimatedOpacity(
+          opacity: _currentScene == 0 ? (1.0 - _fadeProgress) : 0.0,
+          duration: const Duration(milliseconds: 200),
+          child: AppBar(
+            title: Text('Abu Ghraib'),
+            backgroundColor: Colors.white,
+            elevation: 0,
+            scrolledUnderElevation: 0,
+            surfaceTintColor: Colors.transparent,
+            leading: IgnorePointer(
+              ignoring: _currentScene != 0,
+              child: IconButton(
+                onPressed: () => context.go('/home'),
+                icon: const Icon(Icons.arrow_back, color: Colors.black),
+              ),
+            ),
+          ),
+        ),
+      ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           return Stack(
@@ -174,7 +197,6 @@ class _PersonalScreenState extends State<PersonalScreen> {
                   ),
                 ),
               ),
-
 
               Positioned.fill(
                 child: ListView.builder(
