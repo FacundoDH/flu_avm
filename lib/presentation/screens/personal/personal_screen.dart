@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
 
+import '../../widgets/widgets.dart';
+
+
+class TextSegment {
+  final String text;
+  final bool isGlitch;
+
+  const TextSegment(
+    this.text,
+    {this.isGlitch = false});
+}
+
 class Scene {
   final Color color;
   final String title;
-  final String body;
+  final List<TextSegment> body;
   final Alignment alignment;
 
   const Scene({
@@ -18,31 +30,51 @@ const List<Scene> scenes = [
   Scene(
     color: Colors.black,
     title: 'Placeholder',
-    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida. Quisque ac auctor ante, eget dapibus neque. Interdum et malesuada fames ac ante ipsum primis in faucibus.',
+    body: [
+      TextSegment('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida.'),
+      TextSegment('Quisque ac auctor ante, eget dapibus neque.', isGlitch: true), 
+      TextSegment(' Interdum et malesuada fames ac ante ipsum primis in faucibus.'),
+      ],
     alignment: Alignment.bottomLeft,
   ),
   Scene(
     color: Colors.red,
     title: 'Placeholder',
-    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida. Quisque ac auctor ante, eget dapibus neque. Interdum et malesuada fames ac ante ipsum primis in faucibus.',
+    body: [
+      TextSegment('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida.'),
+      TextSegment('Quisque ac auctor ante, eget dapibus neque.', isGlitch: true), 
+      TextSegment(' Interdum et malesuada fames ac ante ipsum primis in faucibus.'),
+      ],
     alignment: Alignment.center,
   ),
   Scene(
     color: Colors.white,
     title: 'Placeholder',
-    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida. Quisque ac auctor ante, eget dapibus neque. Interdum et malesuada fames ac ante ipsum primis in faucibus.',
+    body: [
+      TextSegment('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida.'),
+      TextSegment('Quisque ac auctor ante, eget dapibus neque.', isGlitch: true), 
+      TextSegment('Interdum et malesuada fames ac ante ipsum primis in faucibus.'),
+      ],
     alignment: Alignment.topRight,
   ),
   Scene(
     color: Colors.green,
     title: 'Placeholder',
-    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida. Quisque ac auctor ante, eget dapibus neque. Interdum et malesuada fames ac ante ipsum primis in faucibus.',
+    body: [
+      TextSegment('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida.'),
+      TextSegment('Quisque ac auctor ante, eget dapibus neque.', isGlitch: true), 
+      TextSegment('Interdum et malesuada fames ac ante ipsum primis in faucibus.'),
+      ],
     alignment: Alignment.topLeft,
   ),
   Scene(
     color: Colors.purple,
     title: 'Placeholder',
-    body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida. Quisque ac auctor ante, eget dapibus neque. Interdum et malesuada fames ac ante ipsum primis in faucibus.',
+    body: [
+      TextSegment('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida.'),
+      TextSegment('Quisque ac auctor ante, eget dapibus neque.', isGlitch: true), 
+      TextSegment('Interdum et malesuada fames ac ante ipsum primis in faucibus.'),
+      ],
     alignment: Alignment.bottomRight,
   ),
 ];
@@ -145,16 +177,35 @@ class _PersonalScreenState extends State<PersonalScreen> {
                                 ),
                               ),
                           
-                              SizedBox(height:24),
+                              SizedBox(height:10),
                           
-                              Text(
-                                scenes[index].body,
-                                style: const TextStyle(
-                                  fontFamily: 'monospace',
-                                  fontSize: 14,
-                                  color: Colors.black,
-                                  height: 1.8,
-                                  letterSpacing: 1.2,
+                              RichText(
+                                text: TextSpan(
+                                  style: const TextStyle(
+                                    fontFamily: 'monospace',
+                                    fontSize: 14,
+                                    color: Colors.black,
+                                    height: 1.8,
+                                    letterSpacing: 1.2,
+                                  ),
+                                  children: scenes[index].body.map((segment) {
+                                    if (segment.isGlitch) {
+                                      return WidgetSpan(
+                                        alignment: PlaceholderAlignment.middle,
+                                        child: GlitchText(
+                                          text: segment.text,
+                                          style: const TextStyle(
+                                            fontFamily: 'monospace',
+                                            fontSize: 14,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 1.2,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    return TextSpan(text: segment.text);
+                                  }).toList(),
                                 ),
                               ),
                             ]
