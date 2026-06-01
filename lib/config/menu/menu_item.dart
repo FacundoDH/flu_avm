@@ -35,7 +35,7 @@ const appMenuItems = <MenuItem>[ //lista de objetos de tipo MenuItems
   ),
   MenuItem(
     title: 'PokeApi',
-    subtitle: 'Peticiones http a uns API',
+    subtitle: 'Peticiones http a una API',
     link: '/request',
     icon: Icons.catching_pokemon
   ),
