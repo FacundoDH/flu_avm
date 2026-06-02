@@ -40,8 +40,8 @@ const appMenuItems = <MenuItem>[ //lista de objetos de tipo MenuItems
     icon: Icons.catching_pokemon
   ),
   MenuItem(
-    title: 'Trabajo Personal',
-    subtitle: 'Proyecto propio',
+    title: 'Abu Ghraib',
+    subtitle: '_ERROR_RIGHTS: (NOT FOUND)',
     link: '/personal',
     icon: Icons.person_outline,
   ),
