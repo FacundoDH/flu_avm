@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../widgets/widgets.dart';
-
 
 class TextSegment {
   final String text;
@@ -42,61 +40,86 @@ const List<Scene> scenes = [
   ),
   Scene(
     imagePath: 'assets/images/personal/personal_2.jpg',
-    title: 'Placeholder',
+    title: 'La Verdad y "La Verdad"',
     body: [
-      TextSegment('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida.'),
-      TextSegment('Quisque ac auctor ante, eget dapibus neque.', isGlitch: true), 
-      TextSegment(' Interdum et malesuada fames ac ante ipsum primis in faucibus.'),
+      TextSegment('_Imágenes del personal, y los '),
+      TextSegment('prisioneros', isGlitch: true), 
+      TextSegment(' salen a la luz en el año 2004. '),
+      TextSegment('El relato de Occidente sobre una lucha por la '),
+      TextSegment('libertad', isGlitch: true),
+      TextSegment(' se vuelve completamente '),
+      TextSegment('insostenible', isGlitch: true),
+      TextSegment('.'),
       ],
     alignment: Alignment.center,
   ),
   Scene(
     imagePath: 'assets/images/personal/personal_3.jpg',
-    title: 'Placeholder',
+    title: '_ERROR: CONTRADICTION',
     body: [
-      TextSegment('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida.'),
-      TextSegment('Quisque ac auctor ante, eget dapibus neque.', isGlitch: true), 
-      TextSegment('Interdum et malesuada fames ac ante ipsum primis in faucibus.'),
+      TextSegment('Se revela que los prisioneros eran sometidos a prácticas '),
+      TextSegment('humillantes', isGlitch: true), 
+      TextSegment(' y '),
+      TextSegment('torturas continuas', isGlitch: true),
+      TextSegment(' mientras estaban '),
+      TextSegment('recluidos', isGlitch: true),
+      TextSegment(' en las instalaciones.'),
       ],
     alignment: Alignment.topRight,
   ),
   Scene(
     imagePath: 'assets/images/personal/personal_4.jpg',
-    title: 'Placeholder',
+    title: 'OPEN: _MASS DESTRUCTION WEAPONS',
     body: [
-      TextSegment('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida.'),
-      TextSegment('Quisque ac auctor ante, eget dapibus neque.', isGlitch: true), 
-      TextSegment('Interdum et malesuada fames ac ante ipsum primis in faucibus.'),
+      TextSegment('"En esta guerra [...] nuestra causa es justa: la '),
+      TextSegment('seguridad', isGlitch: true), 
+      TextSegment(' de las naciones a las que servimos y '),
+      TextSegment('la paz mundial', isGlitch: true), 
+      TextSegment('."'), 
+      TextSegment(' ¿Era esto la verdad, o "la verdad"?', isGlitch: true), 
       ],
     alignment: Alignment.topLeft,
   ),
   Scene(
     imagePath: 'assets/images/personal/personal_5.jpg',
-    title: 'Placeholder',
+    title: 'SEARCHING...',
     body: [
-      TextSegment('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida.'),
-      TextSegment('Quisque ac auctor ante, eget dapibus neque.', isGlitch: true), 
-      TextSegment('Interdum et malesuada fames ac ante ipsum primis in faucibus.'),
+      TextSegment('"En este conflicto, las fuerzas estadounidenses y la coalición se enfrentan a '),
+      TextSegment('enemigos', isGlitch: true), 
+      TextSegment(' que no respetan las ocnvenciones de la '),
+      TextSegment('guerra', isGlitch: true),
+      TextSegment(' ni las '),
+      TextSegment('normas morales', isGlitch: true),
+      TextSegment('."'),
       ],
     alignment: Alignment.bottomRight,
   ),
   Scene(
     imagePath: 'assets/images/personal/personal_6.jpg',
-    title: 'Placeholder',
+    title: 'SEARCHING...',
     body: [
-      TextSegment('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida.'),
-      TextSegment('Quisque ac auctor ante, eget dapibus neque.', isGlitch: true), 
-      TextSegment('Interdum et malesuada fames ac ante ipsum primis in faucibus.'),
+      TextSegment('"Millones de estadounidenses rezan con ellos por la '),
+      TextSegment('seguridad', isGlitch: true), 
+      TextSegment(' de sus '),
+      TextSegment('seres queridos', isGlitch: true),
+      TextSegment(' y por la protección de todos los '),
+      TextSegment('inocentes', isGlitch: true),
+      TextSegment('."'),
+      
       ],
     alignment: Alignment.bottomRight,
   ),
   Scene(
     imagePath: 'assets/images/personal/personal_7.jpg',
-    title: 'Placeholder',
+    title: 'ERROR: _MASS DESTRUCTION WEAPONS (NOT FOUND)',
     body: [
-      TextSegment('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec porta porttitor gravida.'),
-      TextSegment('Quisque ac auctor ante, eget dapibus neque.', isGlitch: true), 
-      TextSegment('Interdum et malesuada fames ac ante ipsum primis in faucibus.'),
+      TextSegment('"Todas las familias con seres queridos sirviendo en esta guerra pueden tener algo presente: Nuestras fuerzas volverán a casa tan pronto como terminen '),
+      TextSegment('su misión', isGlitch: true),
+      TextSegment('. [...] Nuestra nación entró en este conflicto a regañadientes, '),
+      TextSegment('pero con un propósito claro y firme', isGlitch: true), 
+      TextSegment('. [...] la unica forma de limitar su duración es aplicar la '),
+      TextSegment('fuerza decisiva', isGlitch: true),
+      TextSegment('."'),
       ],
     alignment: Alignment.bottomRight,
   ),
@@ -126,15 +149,14 @@ class _PersonalScreenState extends State<PersonalScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
     final offset = _scrollController.offset;
 
-    final int sceneIndex = (
-      offset / screenHeight
-    ).floor().clamp(0, scenes.length - 1);
+    final int rawIndex = (offset / screenHeight).floor();
+    final int sceneIndex = (rawIndex % scenes.length);
 
     final double progress = (offset % screenHeight) / screenHeight;
 
-    final double fadeProgress = progress < 0.7
+    final double fadeProgress = progress < 0.4
       ? 0.0
-      : ((progress - 0.7) / 0.3).clamp(0.0, 1.0);
+      : ((progress - 0.4) / 0.6).clamp(0.0, 1.0);
 
     setState(() {
       _currentScene = sceneIndex;
@@ -151,7 +173,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
   @override
   Widget build(BuildContext context) {
 
-    final int nextScene = (_currentScene + 1).clamp(0, scenes.length - 1);
+    final int nextScene = (_currentScene + 1) % scenes.length;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -202,13 +224,14 @@ class _PersonalScreenState extends State<PersonalScreen> {
                 child: ListView.builder(
                   controller: _scrollController,
                   physics: const AlwaysScrollableScrollPhysics(),
-                  itemCount: scenes.length,
+                  itemCount: 999999,
                   itemBuilder: (context, index) {
+                    final scene = scenes[index % scenes.length];
                     return Container(
                       height: constraints.maxHeight,
                       padding: EdgeInsets.symmetric(horizontal:32, vertical:64),
                       child: Align(
-                        alignment: scenes[index].alignment,
+                        alignment: scene.alignment,
                         child: Container(
                           padding: EdgeInsets.all(16),
                           color: Colors.black.withValues(alpha: 0.8),
@@ -218,7 +241,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
                             children: [
                           
                               Text(
-                                scenes[index].title,
+                                scene.title,
                                 style: const TextStyle(
                                   fontFamily: 'monospace',
                                   fontSize: 22,
@@ -239,7 +262,7 @@ class _PersonalScreenState extends State<PersonalScreen> {
                                     height: 1.8,
                                     letterSpacing: 1.2,
                                   ),
-                                  children: scenes[index].body.map((segment) {
+                                  children: scene.body.map((segment) {
                                     if (segment.isGlitch) {
                                       return WidgetSpan(
                                         alignment: PlaceholderAlignment.middle,
